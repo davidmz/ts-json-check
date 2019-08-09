@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./build/",
+    "sourceMap": true,
+    "target": "es5",
+    "lib": ["es5", "es6", "es7"],
+
+    "moduleResolution": "node",
+    "module": "es6",
+    "declaration": true,
+    "importHelpers": true,
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "diagnostics": true
+  },
+  "files": ["src/index.ts"],
+  "exclude": ["**/*.test.ts"]
+}
