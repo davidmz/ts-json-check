@@ -73,6 +73,16 @@ primitive JSON types:
 - **isString**
 - **isBoolean**
 
+### Constant checkers
+
+There is one checker function that checks that the argument is a constant value of primitive
+JSON type: **isConst**.
+
+Use it as: `isConst(42)`
+
+It is useful when your data can have different shape depending on value of some field
+(the _discriminant_ in TS terms).
+
 ### Composite checkers
 
 The composite JSON types are expressed by the following functions:

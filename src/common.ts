@@ -8,6 +8,8 @@ export function nameOf<T>(c: Checker<T>) {
   return c.displayName || c.name || "unknown";
 }
 
+export type JSONPrimitive = null | string | number | boolean;
+
 /**
  * Returns result type of CombinedChecker
  *

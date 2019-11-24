@@ -1,3 +1,5 @@
+import { Checker, JSONPrimitive } from "./common";
+
 export function isNull(v: any): null {
   if (v !== null) {
     throw new Error(`${v} is not a null`);
@@ -31,4 +33,13 @@ export function isBoolean(v: any): boolean {
     throw new Error(`${v} is not a boolean`);
   }
   return v;
+}
+
+export function isConst<T extends JSONPrimitive>(konst: T): Checker<T> {
+  return (v: any) => {
+    if (v !== konst) {
+      throw new Error(`${v} is not a ${konst}`);
+    }
+    return v;
+  };
 }

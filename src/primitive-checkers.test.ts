@@ -4,6 +4,7 @@ import {
   isNumber,
   isString,
   isUndefined,
+  isConst,
 } from "./primitive-checkers";
 import { Checker } from "./common";
 
@@ -38,4 +39,31 @@ describe("Primitive types checkers", () => {
   describe("isString", () => testChecker(isString, "string"));
   describe("isBoolean", () => testChecker(isBoolean, "boolean"));
   describe("isUndefined", () => testChecker(isUndefined, "undefined"));
+});
+
+describe("Constant types checker", () => {
+  it("should check constant of type number", () => {
+    const data = 42;
+    const checker = isConst(42);
+    expect(() => checker(data)).not.toThrow();
+    expect(checker(data)).toBe(data);
+  });
+
+  it("should fail on bad type", () => {
+    const data = "q";
+    const checker = isConst(42);
+    expect(() => checker(data)).toThrow();
+  });
+
+  it("should fail on bad value", () => {
+    const data = 43;
+    const checker = isConst(42);
+    expect(() => checker(data)).toThrow();
+  });
+
+  it("should fail on non-primitive type", () => {
+    const data = [43];
+    const checker = isConst(42);
+    expect(() => checker(data)).toThrow();
+  });
 });
