@@ -10,9 +10,9 @@ export function isObject<T extends object>(
 
   const tKeys = Object.keys(template) as (keyof typeof template)[];
 
-  const thisChecker: Checker<
-    CombinedResult<typeof template>
-  > = function isObject(v: any) {
+  const thisChecker: Checker<CombinedResult<
+    typeof template
+  >> = function isObject(v: any) {
     if (!isPlainObject(v)) {
       throw new Error(`${v} is not a plain object`);
     }

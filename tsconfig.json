@@ -17,6 +17,6 @@
     "allowSyntheticDefaultImports": true,
     "diagnostics": true
   },
-  "files": ["src/index.ts"],
-  "exclude": ["**/*.test.ts"]
+  // "files": ["src/**/*.ts"],
+  "exclude": ["build/**/*"]
 }
