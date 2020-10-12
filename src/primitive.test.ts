@@ -73,5 +73,12 @@ describe("Primitive guards", () => {
         assert<IsExact<typeof x, 43>>(false);
       }
     });
+
+    it("should test isConst with multiple values", () => {
+      const x: any = 42;
+      if (isConst(43, "foo")(x)) {
+        assert<IsExact<typeof x, 43 | "foo">>(true);
+      }
+    });
   });
 });

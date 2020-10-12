@@ -20,8 +20,10 @@ export function isBoolean(v: any): v is boolean {
   return typeof v === "boolean";
 }
 
-export function isConst<T extends JSONPrimitive>(konst: T): Guard<T> {
-  return (v: any): v is T => v === konst;
+export function isConst<T extends [JSONPrimitive, ...JSONPrimitive[]]>(
+  ...konsts: T
+): Guard<T[number]> {
+  return (v: any): v is T[number] => konsts.some((k) => v === k);
 }
 
 export function isAny(v: any): v is any {

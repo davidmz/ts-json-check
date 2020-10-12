@@ -1,3 +1,11 @@
-export { isNull, isBoolean, isNumber, isString, isConst } from "./primitive-checkers";
-export { isObject, isArray, isTuple } from "./complex-checkers";
-export { isAnyOf, isOptional } from "./utility-checkers";
+export { Guard, GuardedType } from "./common";
+export {
+  isNull,
+  isNumber,
+  isString,
+  isBoolean,
+  isConst,
+  isAny,
+} from "./primitive";
+export { isArray, isTuple, isObject } from "./complex";
+export { isAnyOf, isOptional } from "./utility";
