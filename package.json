@@ -1,6 +1,6 @@
 {
   "name": "ts-json-check",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple JSON-data typechecker for TypeScript",
   "keywords": [
     "typescript",
@@ -13,12 +13,12 @@
   "author": "David Mzareulyan <david@hiero.ru> (https://github.com/davidmz)",
   "license": "MIT",
   "source": "src/index.ts",
-  "main": "build/index.js",
-  "module": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "types": "build/esm/index.d.ts",
   "scripts": {
-    "build": "del-cli build && tsc",
-    "prepack": "jest && del-cli build && tsc",
+    "build": "del-cli build && tsc && tsc -p ./tsconfig.cjs.json",
+    "prepack": "jest && del-cli build && tsc && tsc -p ./tsconfig.cjs.json",
     "test": "jest"
   },
   "devDependencies": {

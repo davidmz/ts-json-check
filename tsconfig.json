@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "./build/",
+    "outDir": "./build/esm/",
     "sourceMap": true,
-    "target": "es5",
+    "target": "es6",
     "lib": ["es5", "es6", "es7"],
 
     "moduleResolution": "node",
@@ -17,5 +17,7 @@
     "allowSyntheticDefaultImports": true,
     "diagnostics": true
   },
-  "exclude": ["build/**/*"]
+  //   "exclude": ["build/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["./src/**/*.test.ts"]
 }
