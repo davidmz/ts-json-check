@@ -1,4 +1,3 @@
-import isPlainObject from "lodash.isplainobject";
 import { Guard } from "./common";
 import { UndefinedAsOptional } from "./optional";
 
@@ -19,4 +18,10 @@ export function isObject<T>(shape: { [K in keyof T]: Guard<T[K]> }) {
   return (v: any): v is UndefinedAsOptional<T> =>
     isPlainObject(v) &&
     (Object.keys(shape) as (keyof T)[]).every((k) => shape[k](v[k]));
+}
+
+function isPlainObject(v: any): boolean {
+  return (
+    v !== null && typeof v === "object" && v.__proto__ === Object.prototype
+  );
 }
