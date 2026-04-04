@@ -3,32 +3,34 @@
   "version": "2.0.3",
   "description": "Simple JSON-data typechecker for TypeScript",
   "keywords": [
-    "typescript",
-    "types",
+    "JSON",
     "typecheck",
-    "validation",
-    "JSON"
+    "types",
+    "typescript",
+    "validation"
   ],
   "homepage": "https://github.com/davidmz/ts-json-check",
-  "author": "David Mzareulyan <david@hiero.ru> (https://github.com/davidmz)",
   "license": "MIT",
-  "type": "module",
+  "author": "David Mzareulyan <david@hiero.ru> (https://github.com/davidmz)",
   "source": "src/index.ts",
+  "type": "module",
   "types": "build/index.d.ts",
   "scripts": {
     "build": "ts-lib-build",
-    "prepack": "node --test src/*.test.ts src/**/*.test.ts && ts-lib-build",
-    "test": "node --test src/*.test.ts src/**/*.test.ts"
+    "prepack": "oxfmt && node --test src/*.test.ts src/**/*.test.ts && ts-lib-build",
+    "test": "node --test src/*.test.ts src/**/*.test.ts",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
+  },
+  "dependencies": {
+    "utility-types": "~3.11.0"
   },
   "devDependencies": {
     "@davidmz/ts-lib-build": "^0.3.2",
     "@types/node": "^25.5.2",
     "conditional-type-checks": "~1.0.6",
-    "prettier": "2.5.1",
+    "oxfmt": "^0.43.0",
     "tslint": "~6.1.3",
     "typescript": "^6.0.2"
-  },
-  "dependencies": {
-    "utility-types": "~3.11.0"
   }
 }

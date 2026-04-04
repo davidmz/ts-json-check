@@ -150,5 +150,6 @@ function isPositiveNumber(v: any): v is number {
   return isNumber(v) && v > 0;
 }
 ```
+
 Note that the guarded type of _isPositiveNumber_ is still a _number_. TypeScript
 hasn't a special type for the positive numbers.
