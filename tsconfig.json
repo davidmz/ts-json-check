@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./build/esm/",
     "sourceMap": true,
     "target": "es6",
     "lib": ["es5", "es6", "es7"],
 
-    "moduleResolution": "node",
-    "module": "es6",
+    "moduleResolution": "node16",
+    "module": "node16",
     "declaration": true,
     "importHelpers": true,
 
@@ -15,7 +16,8 @@
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "diagnostics": true
+    "diagnostics": true,
+    "types": ["jest"]
   },
   //   "exclude": ["build/**/*"]
   "include": ["./src/**/*"]
