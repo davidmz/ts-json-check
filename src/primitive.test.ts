@@ -1,4 +1,6 @@
-import { assert, IsExact } from "conditional-type-checks";
+import { describe, it } from "node:test";
+import type { IsExact } from "conditional-type-checks";
+import { assert } from "conditional-type-checks";
 import {
   isNull,
   isUndefined,
@@ -7,7 +9,7 @@ import {
   isBoolean,
   isAny,
   isConst,
-} from "./primitive";
+} from "./primitive.ts";
 
 describe("Primitive guards", () => {
   describe("Type tests", () => {

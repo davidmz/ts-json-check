@@ -1,4 +1,4 @@
-export type { Guard, GuardedType } from "./common";
+export type { Guard, GuardedType } from "./common.ts";
 export {
   isNull,
   isNumber,
@@ -6,6 +6,6 @@ export {
   isBoolean,
   isConst,
   isAny,
-} from "./primitive";
-export { isArray, isTuple, isObject } from "./complex";
-export { isAnyOf, isOptional } from "./utility";
+} from "./primitive.ts";
+export { isArray, isTuple, isObject } from "./complex.ts";
+export { isAnyOf, isOptional } from "./utility.ts";

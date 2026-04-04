@@ -1,5 +1,5 @@
-import { Guard } from "./common";
-import { UndefinedAsOptional } from "./optional";
+import type { Guard } from "./common.ts";
+import type { UndefinedAsOptional } from "./optional.ts";
 
 export function isArray<T>(g: Guard<T>): Guard<T[]> {
   return (v: any): v is T[] => Array.isArray(v) && v.every((x) => g(x));

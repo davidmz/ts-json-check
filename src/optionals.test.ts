@@ -1,5 +1,7 @@
-import { assert, IsExact } from "conditional-type-checks";
-import { UndefinedAsOptional } from "./optional";
+import { describe, it } from "node:test";
+import type { IsExact } from "conditional-type-checks";
+import { assert } from "conditional-type-checks";
+import type { UndefinedAsOptional } from "./optional.ts";
 
 describe("Optional", () => {
   it("should test UndefinedAsOptional", () => {

@@ -10,6 +10,8 @@
     "module": "node16",
     "declaration": true,
     "importHelpers": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
 
     "strict": true,
     "noUnusedLocals": true,
@@ -17,7 +19,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "diagnostics": true,
-    "types": ["jest"]
+    "types": ["node"]
   },
   //   "exclude": ["build/**/*"]
   "include": ["./src/**/*"]

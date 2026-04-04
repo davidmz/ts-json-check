@@ -1,4 +1,4 @@
-import { JSONPrimitive, Guard } from "./common";
+import type { JSONPrimitive, Guard } from "./common.ts";
 
 export function isNull(v: any): v is null {
   return v === null;

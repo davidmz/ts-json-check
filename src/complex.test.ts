@@ -1,7 +1,9 @@
-import { assert, IsExact } from "conditional-type-checks";
-import { isOptional } from "./utility";
-import { isArray, isTuple, isObject } from "./complex";
-import { isNumber, isString } from "./primitive";
+import { describe, it } from "node:test";
+import type { IsExact } from "conditional-type-checks";
+import { assert } from "conditional-type-checks";
+import { isOptional } from "./utility.ts";
+import { isArray, isTuple, isObject } from "./complex.ts";
+import { isNumber, isString } from "./primitive.ts";
 
 describe("Complex guards", () => {
   describe("Type tests", () => {
