@@ -10,3 +10,4 @@ export {
 } from "./primitive.ts";
 export { isArray, isTuple, isObject } from "./complex.ts";
 export { isAnyOf, isOptional } from "./utility.ts";
+export { checker } from "./checker.ts";
