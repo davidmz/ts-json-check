@@ -1,6 +1,6 @@
 {
   "name": "ts-json-check",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Simple JSON-data typechecker for TypeScript",
   "keywords": [
     "JSON",

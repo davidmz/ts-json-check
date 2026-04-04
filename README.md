@@ -55,6 +55,21 @@ if (isResponse(apiResponse)) {
 }
 ```
 
+When you need to know _where_ the data failed validation, wrap the guard with `checker()`:
+
+```typescript
+import { checker } from "ts-json-check";
+
+const chkResponse = checker(isResponse);
+
+if (chkResponse(apiResponse)) {
+  // apiResponse is APIResponse here
+} else {
+  console.error(chkResponse.error?.path);    // e.g. ".title"
+  console.error(chkResponse.error?.message); // e.g. "isString() failed"
+}
+```
+
 ## API
 
 This library is intended only for JSON processing, so it does not attempt
@@ -134,10 +149,24 @@ Use it as: `isObject({ id: isNumber, title: isOptional(isString) })`
 
 The resulting type will be `{ id: number, title?: string | undefined }`.
 
+### Error reporting
+
+**checker**
+
+Wraps any guard into a `CheckerGuard<T>`. A `CheckerGuard` is still a regular type guard —
+`if (chk(x))` narrows `x` to `T` — but after each call it also exposes an `error` property:
+
+- `chk.error` is `null` on success
+- `chk.error` is a `CheckError` on failure, with:
+  - `path: string` — dot-separated path to the failing field (e.g. `".users[0].email"`)
+  - `message: string` — description of the failure (e.g. `"isString() failed"`)
+
+`CheckError` extends `Error`, so it can be thrown or passed to error-handling utilities.
+
 ### Custom guards
 
 Although this is not usually necessary, you can create your own guard functions.
-The type is simple: `Guard<T> = (v: unknown) => v is T`. Guard function should check
+The type is simple: `Guard<T> = (v: unknown, ctx?: Context) => v is T`. Guard function should check
 argument and return _true_ if it has the correct type of _false_ otherwise (see
 [the TypeScript docs](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards)).
 
@@ -153,3 +182,27 @@ function isPositiveNumber(v: unknown): v is number {
 
 Note that the guarded type of _isPositiveNumber_ is still a _number_. TypeScript
 hasn't a special type for the positive numbers.
+
+Simple custom guards like the one above don't need to handle the `context` parameter —
+when used with `checker()`, it will fall back to a generic error message pointing at the
+guard's function name.
+
+However, if you write a complex custom guard with internal branching, you should populate
+the context yourself so that `checker()` can report a precise error path:
+
+```typescript
+import { isNumber, isString, isObject } from "ts-json-check";
+import type { Guard, Context } from "ts-json-check";
+
+function isEmail(v: unknown, ctx?: Context): v is string {
+  if (!isString(v)) {
+    if (ctx) ctx.error = new CheckError(ctx.path, "expected an email string");
+    return false;
+  }
+  if (!v.includes("@")) {
+    if (ctx) ctx.error = new CheckError(ctx.path, "not a valid email");
+    return false;
+  }
+  return true;
+}
+```
