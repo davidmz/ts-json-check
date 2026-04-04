@@ -1,4 +1,4 @@
-export { Guard, GuardedType } from "./common";
+export type { Guard, GuardedType } from "./common";
 export {
   isNull,
   isNumber,

@@ -13,18 +13,16 @@
   "author": "David Mzareulyan <david@hiero.ru> (https://github.com/davidmz)",
   "license": "MIT",
   "source": "src/index.ts",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "types": "build/esm/index.d.ts",
+  "types": "build/index.d.ts",
   "scripts": {
-    "build": "del-cli build && tsc && tsc -p ./tsconfig.cjs.json",
-    "prepack": "jest && del-cli build && tsc && tsc -p ./tsconfig.cjs.json",
+    "build": "ts-lib-build",
+    "prepack": "jest && ts-lib-build",
     "test": "jest"
   },
   "devDependencies": {
+    "@davidmz/ts-lib-build": "^0.3.2",
     "@types/jest": "^30.0.0",
     "conditional-type-checks": "~1.0.5",
-    "del-cli": "^4.0.1",
     "jest": "^30.3.0",
     "prettier": "2.5.1",
     "ts-jest": "~29.4.9",
