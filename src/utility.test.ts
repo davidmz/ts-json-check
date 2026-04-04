@@ -1,9 +1,11 @@
 import { describe, it } from "node:test";
+import { strictEqual } from "node:assert";
 import type { IsExact } from "conditional-type-checks";
 import { assert } from "conditional-type-checks";
 import { isArray, isObject, isTuple } from "./complex.ts";
 import { isConst, isNull, isNumber, isString } from "./primitive.ts";
-import { isAnyOf } from "./utility.ts";
+import { isAnyOf, isOptional } from "./utility.ts";
+import type { Context } from "./common.ts";
 
 describe("Utility guards", () => {
   describe("Type tests", () => {
@@ -52,6 +54,53 @@ describe("Utility guards", () => {
           assert<IsExact<typeof x.baz, number>>(true);
         }
       }
+    });
+  });
+
+  describe("isAnyOf context", () => {
+    it("should set error when no guard matches", () => {
+      const ctx: Context = { path: [], error: null };
+      const ok = isAnyOf(isNumber, isString)(true, ctx);
+      strictEqual(ok, false);
+      strictEqual(ctx.error?.path, ".");
+      strictEqual(ctx.error?.message, "isAnyOf() failed");
+    });
+
+    it("should not set error when a guard matches", () => {
+      const ctx: Context = { path: [], error: null };
+      const ok = isAnyOf(isNumber, isString)(42, ctx);
+      strictEqual(ok, true);
+      strictEqual(ctx.error, null);
+    });
+
+    it("should clear error from failed attempts when a later guard matches", () => {
+      const ctx: Context = { path: [], error: null };
+      const ok = isAnyOf(isNumber, isString)("hello", ctx);
+      strictEqual(ok, true);
+      strictEqual(ctx.error, null);
+    });
+  });
+
+  describe("isOptional context", () => {
+    it("should not set error for undefined", () => {
+      const ctx: Context = { path: [], error: null };
+      const ok = isOptional(isNumber)(undefined, ctx);
+      strictEqual(ok, true);
+      strictEqual(ctx.error, null);
+    });
+
+    it("should not set error for valid value", () => {
+      const ctx: Context = { path: [], error: null };
+      const ok = isOptional(isNumber)(42, ctx);
+      strictEqual(ok, true);
+      strictEqual(ctx.error, null);
+    });
+
+    it("should set error when value is present but wrong type", () => {
+      const ctx: Context = { path: [], error: null };
+      const ok = isOptional(isNumber)("oops", ctx);
+      strictEqual(ok, false);
+      strictEqual(ctx.error?.message, "isAnyOf() failed");
     });
   });
 });

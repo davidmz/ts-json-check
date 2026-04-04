@@ -1,4 +1,5 @@
-export type { Guard, GuardedType } from "./common.ts";
+export type { Guard, CheckerGuard, GuardedType, Context } from "./common.ts";
+export { CheckError } from "./common.ts";
 export {
   isNull,
   isNumber,
