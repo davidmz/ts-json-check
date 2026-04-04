@@ -8,7 +8,7 @@ import { isNumber, isString } from "./primitive.ts";
 describe("Complex guards", () => {
   describe("Type tests", () => {
     it("should test isArray", () => {
-      const x: any = 42;
+      const x: unknown = 42;
       if (isArray(isNumber)(x)) {
         assert<IsExact<typeof x, number[]>>(true);
       } else {
@@ -17,7 +17,7 @@ describe("Complex guards", () => {
     });
 
     it("should test isTuple", () => {
-      const x: any = 42;
+      const x: unknown = 42;
       if (isTuple(isNumber, isString)(x)) {
         assert<IsExact<typeof x, [number, string]>>(true);
         assert<IsExact<typeof x, [number, number]>>(false);
@@ -28,7 +28,7 @@ describe("Complex guards", () => {
     });
 
     it("should test isObject", () => {
-      const x: any = 42;
+      const x: unknown = 42;
       if (isObject({ foo: isNumber, bar: isString })(x)) {
         assert<IsExact<typeof x, { foo: number; bar: string }>>(true);
         assert<IsExact<typeof x, { foo: number }>>(false);
@@ -41,7 +41,7 @@ describe("Complex guards", () => {
     });
 
     it("should test isObject with an optional field", () => {
-      const x: any = 42;
+      const x: unknown = 42;
       if (isObject({ foo: isNumber, bar: isOptional(isString) })(x)) {
         assert<IsExact<typeof x, { foo: number; bar?: string }>>(true);
       }

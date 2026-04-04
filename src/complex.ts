@@ -2,25 +2,25 @@ import type { Guard } from "./common.ts";
 import type { UndefinedAsOptional } from "./optional.ts";
 
 export function isArray<T>(g: Guard<T>): Guard<T[]> {
-  return (v: any): v is T[] => Array.isArray(v) && v.every((x) => g(x));
+  return (v: unknown): v is T[] => Array.isArray(v) && v.every((x) => g(x));
 }
 
 export function isTuple<T extends [unknown, ...unknown[]]>(
   ...guards: { [K in keyof T]: Guard<T[K]> }
 ): Guard<T> {
-  return (v: any): v is T =>
+  return (v: unknown): v is T =>
     Array.isArray(v) &&
     v.length === guards.length &&
     v.every((x, i) => guards[i](x));
 }
 
 export function isObject<T>(shape: { [K in keyof T]: Guard<T[K]> }) {
-  return (v: any): v is UndefinedAsOptional<T> =>
+  return (v: unknown): v is UndefinedAsOptional<T> =>
     isPlainObject(v) &&
     (Object.keys(shape) as (keyof T)[]).every((k) => shape[k](v[k]));
 }
 
-function isPlainObject(v: any): boolean {
+function isPlainObject(v: unknown): boolean {
   return (
     v !== null && typeof v === "object" && v.__proto__ === Object.prototype
   );

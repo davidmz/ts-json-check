@@ -32,7 +32,7 @@ import {
 // ...
 
 // You can't be sure that the data from the server is correct, so
-// apiResponse has an 'any' type.
+// apiResponse has an 'unknown' type.
 const apiResponse = getSomeData();
 
 // Describe the desired shape of data using ts-json-check
@@ -137,7 +137,7 @@ The resulting type will be `{ id: number, title?: string | undefined }`.
 ### Custom guards
 
 Although this is not usually necessary, you can create your own guard functions.
-The type is simple: `Guard<T> = (v: any) => v is T`. Guard function should check
+The type is simple: `Guard<T> = (v: unknown) => v is T`. Guard function should check
 argument and return _true_ if it has the correct type of _false_ otherwise (see
 [the TypeScript docs](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards)).
 
@@ -146,7 +146,7 @@ For example let's create guard for positive numbers:
 ```typescript
 import { isNumber } from "ts-json-check";
 
-function isPositiveNumber(v: any): v is number {
+function isPositiveNumber(v: unknown): v is number {
   return isNumber(v) && v > 0;
 }
 ```

@@ -1,4 +1,4 @@
-export type Guard<T> = (v: any) => v is T;
+export type Guard<T> = (v: unknown) => v is T;
 
 export type JSONPrimitive = null | string | number | boolean;
 
