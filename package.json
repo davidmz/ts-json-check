@@ -17,7 +17,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "ts-lib-build",
-    "prepack": "oxfmt && node --test src/*.test.ts src/**/*.test.ts && ts-lib-build",
+    "prepack": "pnpm run lint && pnpm run test && pnpm run build",
     "test": "node --test src/*.test.ts src/**/*.test.ts",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
