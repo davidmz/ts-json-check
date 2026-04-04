@@ -8,14 +8,15 @@ export interface Context {
 
 export class CheckError extends Error {
   readonly path: string;
-  readonly message: string;
 
   constructor(path: (string | number)[], message: string) {
-    const pathStr = pathToString(path);
-    super(`${pathStr}: ${message}`);
+    super(message);
     this.name = "CheckError";
-    this.path = pathStr;
-    this.message = message;
+    this.path = pathToString(path);
+  }
+
+  toString(): string {
+    return `${this.path}: ${this.message}`;
   }
 }
 
