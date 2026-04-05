@@ -1,4 +1,4 @@
-import { CheckError } from "./common.ts";
+import { CheckError, guardName } from "./common.ts";
 import type { Context, Guard, CheckerGuard } from "./common.ts";
 
 export function checker<T>(guard: Guard<T>): CheckerGuard<T> {
@@ -9,7 +9,8 @@ export function checker<T>(guard: Guard<T>): CheckerGuard<T> {
       const ok = guard(v, ctx);
       lastError = ok
         ? null
-        : (ctx.error ?? new CheckError(ctx.path, `${guard.name}() failed`));
+        : (ctx.error ??
+          new CheckError(ctx.path, `${guardName(guard)}() failed`));
       if (!ok && !ctx.error) ctx.error = lastError;
       return ok;
     }
@@ -17,7 +18,7 @@ export function checker<T>(guard: Guard<T>): CheckerGuard<T> {
     const ok = guard(v, localCtx);
     lastError = ok
       ? null
-      : (localCtx.error ?? new CheckError([], `${guard.name}() failed`));
+      : (localCtx.error ?? new CheckError([], `${guardName(guard)}() failed`));
     return ok;
   };
 

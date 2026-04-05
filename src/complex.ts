@@ -1,4 +1,4 @@
-import { CheckError } from "./common.ts";
+import { CheckError, guardName } from "./common.ts";
 import type { Guard, Context } from "./common.ts";
 import type { UndefinedAsOptional } from "./optional.ts";
 
@@ -12,7 +12,7 @@ export function isArray<T>(g: Guard<T>): Guard<T[]> {
       ctx?.path.push(i);
       if (!g(v[i], ctx)) {
         if (ctx && !ctx.error)
-          ctx.error = new CheckError(ctx.path, `${g.name}() failed`);
+          ctx.error = new CheckError(ctx.path, `${guardName(g)}() failed`);
         return false;
       }
       ctx?.path.pop();
@@ -33,7 +33,10 @@ export function isTuple<T extends [unknown, ...unknown[]]>(
       ctx?.path.push(i);
       if (!guards[i](v[i], ctx)) {
         if (ctx && !ctx.error)
-          ctx.error = new CheckError(ctx.path, `${guards[i].name}() failed`);
+          ctx.error = new CheckError(
+            ctx.path,
+            `${guardName(guards[i])}() failed`,
+          );
         return false;
       }
       ctx?.path.pop();
@@ -52,7 +55,10 @@ export function isObject<T>(shape: { [K in keyof T]: Guard<T[K]> }) {
       ctx?.path.push(k);
       if (!shape[k](v[k], ctx)) {
         if (ctx && !ctx.error)
-          ctx.error = new CheckError(ctx.path, `${shape[k].name}() failed`);
+          ctx.error = new CheckError(
+            ctx.path,
+            `${guardName(shape[k])}() failed`,
+          );
         return false;
       }
       ctx?.path.pop();

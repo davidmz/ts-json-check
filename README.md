@@ -25,7 +25,7 @@ import {
   isBoolean,
   isNumber,
   isString,
-  isAnyOf,
+  isOneOf,
   // ...
 } from "ts-json-check";
 
@@ -38,7 +38,7 @@ const apiResponse = getSomeData();
 // Describe the desired shape of data using ts-json-check
 // guard functions.
 const isResponse = isObject({
-  id: isAnyOf(isNumber, isString),
+  id: isOneOf(isNumber, isString),
   title: isString,
   archived: isBoolean,
 });
@@ -97,10 +97,11 @@ It is useful when your data can have different shape depending on value of some 
 The multi-argument form of this guard (`isConst(42, 43)`) is equivalent to the following isAnyOf
 form: `isAnyOf(isConst(42), isConst(43))`.
 
-### 'Any' guard
+### 'Any' and 'Unknown' guards
 
-There is **isAny** guard that is always returns _true_ and keeps it argument as _any_. It is useful
-when you don't know the exact type of your data yet and want to keep some fields untyped.
+There is **isAny** and **isUnknown** guards that are always returns _true_ and keeps it argument
+as _any_ or _unknown_ respectively. They are useful when you don't know the exact type of your
+data yet and want to keep some fields untyped.
 
 ### Composite guards
 
@@ -132,14 +133,23 @@ of the isTuple arguments. The argument list may not be empty.
 
 ### Utility checkers
 
-**isAnyOf**
+**isOneOf**
 
 Checks that value have one of the given types.
 
-Use it as: `isAnyOf(isNumber, isString)`
+Use it as: `isOneOf(isNumber, isString)`
 
 The resulting type will be `number | string`.
-The isAnyOf accepts two or more checkers as arguments.
+The isOneOf accepts two or more checkers as arguments.
+
+**isAllOf**
+
+Checks that value have all of the given types.
+
+Use it as: `isAllOf(isNumber, (x) => x > 0)`
+
+The resulting type will be `number`, but the value must pass both checks.
+The isAllOf accepts two or more checkers as arguments.
 
 **isOptional**
 

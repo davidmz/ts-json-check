@@ -1,12 +1,27 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- `isOneOf` function: checks if a value matches any of the provided guards. It replaces the deprecated `isAnyOf` function.
+- `isAllOf` function: checks if a value matches all of the provided guards.
+
+### Deprecated
+
+- `isAnyOf` function: use `isOneOf` instead.
+
+### Fixed
+
+- `checker()` now forwards the outer context when used as a nested guard inside complex structures like `isObject`. This means user can use `CheckerGuard` in nested structures in the same way as `Guard`, and it will correctly report the full nested path (e.g. `.address.street`).
+
 ## [2.2.0] - 2026-04-04
 
 ### Added
 
-- **`CheckError` class**: `CheckError extends Error` with `path: string` and `message: string` fields. The `path` reflects where in the data structure validation failed (e.g. `.user.address.zip`).
-- **`checker()` function**: wraps any `Guard<T>` into a `CheckerGuard<T>` — a type guard that also exposes a `error: CheckError | null` property after each call. Type narrowing works as usual (`if (chk(x)) { /* x is T */ }`), and on failure `chk.error` contains the path and reason.
-- **Context-aware validation** in `isObject`, `isArray`, `isTuple`, `isAnyOf`, and `isOptional`: when called via `checker()`, these now populate the error path automatically.
+- `CheckError` class: `CheckError extends Error` with `path: string` and `message: string` fields. The `path` reflects where in the data structure validation failed (e.g. `.user.address.zip`).
+- `checker()` function: wraps any `Guard<T>` into a `CheckerGuard<T>` — a type guard that also exposes a `error: CheckError | null` property after each call. Type narrowing works as usual (`if (chk(x)) { /* x is T */ }`), and on failure `chk.error` contains the path and reason.
+- Context-aware validation in `isObject`, `isArray`, `isTuple`, `isAnyOf`, and `isOptional`: when called via `checker()`, these now populate the error path automatically.
 
 ## [2.1.0] - 2026-04-04
 

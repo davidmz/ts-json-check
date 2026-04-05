@@ -43,3 +43,7 @@ function pathToString(path: (string | number)[]): string {
   }
   return parts.join("");
 }
+
+export function guardName(guard: Guard<unknown>): string {
+  return guard.name || "λ";
+}
