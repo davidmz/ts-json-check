@@ -65,7 +65,7 @@ const chkResponse = checker(isResponse);
 if (chkResponse(apiResponse)) {
   // apiResponse is APIResponse here
 } else {
-  console.error(chkResponse.error?.path);    // e.g. ".title"
+  console.error(chkResponse.error?.path); // e.g. ".title"
   console.error(chkResponse.error?.message); // e.g. "isString() failed"
 }
 ```

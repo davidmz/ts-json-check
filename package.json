@@ -17,11 +17,10 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "ts-lib-build",
-    "prepack": "pnpm run lint && pnpm run test && pnpm run build",
+    "prepack": "pnpm run check && pnpm run test && pnpm run build",
     "test": "node --test src/*.test.ts src/**/*.test.ts",
     "format": "oxfmt",
-    "format:check": "oxfmt --check",
-    "lint": "oxlint"
+    "check": "oxlint && oxfmt -V --check"
   },
   "dependencies": {
     "utility-types": "~3.11.0"

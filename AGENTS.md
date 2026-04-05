@@ -13,6 +13,7 @@ pnpm run format:check      # oxfmt --check
 ```
 
 To run a single test file:
+
 ```bash
 node --test src/primitive.test.ts
 ```
@@ -22,6 +23,7 @@ node --test src/primitive.test.ts
 This is a small TypeScript library that provides runtime type-guard functions for JSON data. All source is in `src/`.
 
 **Module structure:**
+
 - `common.ts` — shared types only (`Guard<T>`, `GuardedType`, `JSONPrimitive`). No runtime code.
 - `primitive.ts` — guards for primitive types (`isNull`, `isNumber`, `isString`, `isBoolean`, `isConst`, `isAny`).
 - `optional.ts` — `UndefinedAsOptional<T>` utility type only. No runtime code.
