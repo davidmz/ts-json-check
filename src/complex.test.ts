@@ -138,7 +138,10 @@ describe("Complex guards", () => {
 
   describe("isArray minLength/maxLength", () => {
     it("should accept array within length bounds", () => {
-      strictEqual(isArray(isNumber, { minLength: 1, maxLength: 3 })([1, 2]), true);
+      strictEqual(
+        isArray(isNumber, { minLength: 1, maxLength: 3 })([1, 2]),
+        true,
+      );
     });
 
     it("should reject array shorter than minLength", () => {
