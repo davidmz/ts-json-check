@@ -76,5 +76,26 @@ describe("checker", () => {
       strictEqual(checkUser.error?.path, ".address.street");
       strictEqual(checkUser.error?.message, "isString() failed");
     });
+
+    it("should handle checker(checker()) correctly", () => {
+      const chk = checker(checkUser);
+      const result = chk({
+        name: "John",
+        address: { street: "123 Main St" },
+      });
+      strictEqual(result, true);
+      strictEqual(chk.error, null);
+    });
+
+    it("should handle checker(checker()) with error", () => {
+      const chk = checker(checkUser);
+      const result = chk({
+        name: "John",
+        address: { street: 123 },
+      });
+      strictEqual(result, false);
+      strictEqual(chk.error?.path, ".address.street");
+      strictEqual(chk.error?.message, "isString() failed");
+    });
   });
 });
