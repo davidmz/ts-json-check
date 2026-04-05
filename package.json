@@ -1,6 +1,6 @@
 {
   "name": "ts-json-check",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Simple JSON-data typechecker for TypeScript",
   "keywords": [
     "JSON",
@@ -26,12 +26,15 @@
     "utility-types": "~3.11.0"
   },
   "devDependencies": {
-    "@davidmz/ts-lib-build": "^0.3.2",
+    "@davidmz/ts-lib-build": "^0.4.0",
     "@types/node": "^25.5.2",
     "conditional-type-checks": "~1.0.6",
     "oxfmt": "^0.43.0",
     "oxlint": "^1.58.0",
     "oxlint-tsgolint": "^0.19.0",
     "typescript": "^6.0.2"
+  },
+  "publishConfig": {
+    "directory": "build"
   }
 }

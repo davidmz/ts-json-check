@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0] - 2026-10-14
+
+### Fixed
+
+- The package publish process was broken in 2.1.0 due to incorrect publish
+  configuration.
+
 ## [2.3.0] - 2026-04-05
 
 ### Added
