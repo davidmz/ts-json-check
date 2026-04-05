@@ -51,4 +51,30 @@ describe("checker", () => {
     strictEqual(chk.error?.path, ".foo");
     strictEqual(chk.error?.message, "isNumber() failed");
   });
+
+  describe("nested checkers", () => {
+    const checkAAddress = checker(isObject({ street: isString }));
+    const checkUser = checker(
+      isObject({ name: isString, address: checkAAddress }),
+    );
+
+    it("should handle nested checkers correctly", () => {
+      const result = checkUser({
+        name: "John",
+        address: { street: "123 Main St" },
+      });
+      strictEqual(result, true);
+      strictEqual(checkUser.error, null);
+    });
+
+    it("should handle nested checkers with error", () => {
+      const result = checkUser({
+        name: "John",
+        address: { street: 123 },
+      });
+      strictEqual(result, false);
+      strictEqual(checkUser.error?.path, ".address.street");
+      strictEqual(checkUser.error?.message, "isString() failed");
+    });
+  });
 });
