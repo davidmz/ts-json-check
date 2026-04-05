@@ -115,6 +115,9 @@ Use it as: `isObject({ foo: isNumber, bar: isString})`. You can use any guards
 as the values of the argument object. The input data object can have additional
 keys, it is not an error.
 
+You can control the extra keys behavior with the `extraKeys` option. Use it as:
+`isObject({ foo: isNumber }, { extraKeys: false })`. `extraKeys: false` rejects extra keys.
+
 **isArray**
 
 An array of values of the same type: `[1, 2, 3, 4]`

@@ -7,6 +7,10 @@
 - `isOneOf` function: checks if a value matches any of the provided guards. It replaces the deprecated `isAnyOf` function.
 - `isAllOf` function: checks if a value matches all of the provided guards.
 
+### Changed
+
+- `isObject` now accepts an optional second argument `{ extraKeys: false }` to reject objects that contain keys not present in the shape. By default extra keys are still allowed.
+
 ### Deprecated
 
 - `isAnyOf` function: use `isOneOf` instead.

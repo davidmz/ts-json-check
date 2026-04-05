@@ -50,13 +50,47 @@ describe("Complex guards", () => {
     });
   });
 
+  describe("isObject extraKeys", () => {
+    it("should allow extra keys by default", () => {
+      const ok = isObject({ foo: isNumber })({ foo: 1, bar: "extra" });
+      strictEqual(ok, true);
+    });
+
+    it("should reject extra keys when extraKeys is false", () => {
+      const ok = isObject(
+        { foo: isNumber },
+        { extraKeys: false },
+      )({
+        foo: 1,
+        bar: "extra",
+      });
+      strictEqual(ok, false);
+    });
+
+    it("should accept exact match when extraKeys is false", () => {
+      const ok = isObject({ foo: isNumber }, { extraKeys: false })({ foo: 1 });
+      strictEqual(ok, true);
+    });
+
+    it("should set error when extra keys found and extraKeys is false", () => {
+      const ctx: Context = { path: [], error: null };
+      const ok = isObject({ foo: isNumber }, { extraKeys: false })(
+        { foo: 1, bar: "extra" },
+        ctx,
+      );
+      strictEqual(ok, false);
+      strictEqual(ctx.error?.path, ".");
+      strictEqual(ctx.error?.message, "isObject() failed: extra keys found");
+    });
+  });
+
   describe("isObject context", () => {
     it("should set error when value is not an object", () => {
       const ctx: Context = { path: [], error: null };
       const ok = isObject({ foo: isNumber })(42, ctx);
       strictEqual(ok, false);
       strictEqual(ctx.error?.path, ".");
-      strictEqual(ctx.error?.message, "isObject() failed");
+      strictEqual(ctx.error?.message, "isObject() failed: not a plain object");
     });
 
     it("should set error path for a failing field", () => {
@@ -108,7 +142,7 @@ describe("Complex guards", () => {
       const ok = isArray(isNumber)(42, ctx);
       strictEqual(ok, false);
       strictEqual(ctx.error?.path, ".");
-      strictEqual(ctx.error?.message, "isArray() failed");
+      strictEqual(ctx.error?.message, "isArray() failed: not an array");
     });
 
     it("should set error path for a failing element", () => {
@@ -133,7 +167,7 @@ describe("Complex guards", () => {
       const ok = isTuple(isNumber, isString)(42, ctx);
       strictEqual(ok, false);
       strictEqual(ctx.error?.path, ".");
-      strictEqual(ctx.error?.message, "isTuple() failed");
+      strictEqual(ctx.error?.message, "isTuple() failed: not an array");
     });
 
     it("should set error when tuple length doesn't match", () => {
@@ -141,7 +175,7 @@ describe("Complex guards", () => {
       const ok = isTuple(isNumber, isString)([1], ctx);
       strictEqual(ok, false);
       strictEqual(ctx.error?.path, ".");
-      strictEqual(ctx.error?.message, "isTuple() failed");
+      strictEqual(ctx.error?.message, "isTuple() failed: wrong length");
     });
 
     it("should set error path for a failing element", () => {
