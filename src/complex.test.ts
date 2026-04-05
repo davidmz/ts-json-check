@@ -136,6 +136,32 @@ describe("Complex guards", () => {
     });
   });
 
+  describe("isArray minLength/maxLength", () => {
+    it("should accept array within length bounds", () => {
+      strictEqual(isArray(isNumber, { minLength: 1, maxLength: 3 })([1, 2]), true);
+    });
+
+    it("should reject array shorter than minLength", () => {
+      strictEqual(isArray(isNumber, { minLength: 2 })([]), false);
+    });
+
+    it("should reject array longer than maxLength", () => {
+      strictEqual(isArray(isNumber, { maxLength: 2 })([1, 2, 3]), false);
+    });
+
+    it("should set error when array is too short", () => {
+      const ctx: Context = { path: [], error: null };
+      isArray(isNumber, { minLength: 2 })([], ctx);
+      strictEqual(ctx.error?.message, "isArray() failed: wrong length");
+    });
+
+    it("should set error when array is too long", () => {
+      const ctx: Context = { path: [], error: null };
+      isArray(isNumber, { maxLength: 2 })([1, 2, 3], ctx);
+      strictEqual(ctx.error?.message, "isArray() failed: wrong length");
+    });
+  });
+
   describe("isArray context", () => {
     it("should set error when value is not an array", () => {
       const ctx: Context = { path: [], error: null };

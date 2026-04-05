@@ -122,7 +122,8 @@ You can control the extra keys behavior with the `extraKeys` option. Use it as:
 
 An array of values of the same type: `[1, 2, 3, 4]`
 
-Use it as: `isArray(isNumber)`
+Use it as: `isArray(isNumber)`. You can constrain the array length with the `minLength` and `maxLength` options:
+`isArray(isNumber, { minLength: 1, maxLength: 10 })`
 
 **isTuple**
 

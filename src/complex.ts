@@ -2,13 +2,23 @@ import { CheckError, guardName } from "./common.ts";
 import type { Guard, Context } from "./common.ts";
 import type { UndefinedAsOptional } from "./optional.ts";
 
-export function isArray<T>(g: Guard<T>): Guard<T[]> {
+export function isArray<T>(
+  g: Guard<T>,
+  { minLength = 0, maxLength = Infinity } = {},
+): Guard<T[]> {
   return (v: unknown, ctx?: Context): v is T[] => {
     if (!Array.isArray(v)) {
       if (ctx)
         ctx.error = new CheckError(ctx.path, "isArray() failed: not an array");
       return false;
     }
+
+    if (v.length < minLength || v.length > maxLength) {
+      if (ctx)
+        ctx.error = new CheckError(ctx.path, "isArray() failed: wrong length");
+      return false;
+    }
+
     for (let i = 0; i < v.length; i++) {
       ctx?.path.push(i);
       if (!g(v[i], ctx)) {
@@ -21,6 +31,7 @@ export function isArray<T>(g: Guard<T>): Guard<T[]> {
     return true;
   };
 }
+
 export function isTuple<T extends [unknown, ...unknown[]]>(
   ...guards: { [K in keyof T]: Guard<T[K]> }
 ): Guard<T> {

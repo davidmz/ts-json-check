@@ -10,6 +10,7 @@
 ### Changed
 
 - `isObject` now accepts an optional second argument `{ extraKeys: false }` to reject objects that contain keys not present in the shape. By default extra keys are still allowed.
+- `isArray` now accepts an optional second argument `{ minLength, maxLength }` to constrain the array length.
 
 ### Deprecated
 
