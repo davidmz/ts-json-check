@@ -82,6 +82,29 @@ describe("Utility guards", () => {
     });
   });
 
+  describe("isAllOf type tests", () => {
+    it("should infer intersection type for two object guards", () => {
+      const x: unknown = {};
+      if (isAllOf(isObject({ a: isNumber }), isObject({ b: isString }))(x)) {
+        assert<IsExact<typeof x, { a: number } & { b: string }>>(true);
+      }
+    });
+
+    it("should infer intersection type for primitive and object guard", () => {
+      const x: unknown = {};
+      if (
+        isAllOf(
+          isObject({ a: isNumber }),
+          isObject({ b: isString, a: isNumber }),
+        )(x)
+      ) {
+        assert<IsExact<typeof x, { a: number } & { b: string; a: number }>>(
+          true,
+        );
+      }
+    });
+  });
+
   describe("isAllOf", () => {
     it("should return true when all guards match", () => {
       // isAllOf is useful for intersection-like checks, e.g. non-empty string

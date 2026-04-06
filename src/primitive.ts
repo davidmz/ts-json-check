@@ -26,10 +26,10 @@ export function isConst<T extends [JSONPrimitive, ...JSONPrimitive[]]>(
   return (v: unknown): v is T[number] => konsts.some((k) => v === k);
 }
 
-export function isAny(v: unknown): v is any {
-  return v === v;
+export function isAny(_v: unknown): _v is any {
+  return true;
 }
 
-export function isUnknown(v: unknown): v is unknown {
-  return v === v;
+export function isUnknown(_v: unknown): _v is unknown {
+  return true;
 }

@@ -1,4 +1,10 @@
-export type { Guard, CheckerGuard, GuardedType, Context, JSONPrimitive } from "./common.ts";
+export type {
+  Guard,
+  CheckerGuard,
+  GuardedType,
+  Context,
+  JSONPrimitive,
+} from "./common.ts";
 export { CheckError } from "./common.ts";
 export {
   isNull,

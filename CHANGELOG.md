@@ -17,6 +17,13 @@
 - `UndefinedAsOptional<T>` now produces a flattened object type instead of an
   intersection (`WithOptional<T> & WithRequired<T>`), so IDE tooltips show a
   clean `{ id: string; username?: string }` instead of the raw intersection.
+- `isAllOf` now correctly infers an intersection type (`A & B`) instead of a
+  union type (`A | B`).
+
+### Fixed
+
+- `isAny` and `isUnknown` now correctly return `true` for `NaN`. Previously
+  they used `v === v` which evaluates to `false` for `NaN`.
 
 ## [2.4.0] - 2026-10-14
 
