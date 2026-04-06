@@ -77,12 +77,15 @@ to simulate all the types available in TypeScript.
 
 ### Primitive guards
 
-The following guards are corresponds to the primitive JSON types:
+The following guards correspond to the primitive JSON types:
 
 - **isNull**
 - **isNumber**
 - **isString**
 - **isBoolean**
+
+**isUndefined** is also available, but `undefined` is not a valid JSON value — use it only
+when working with non-JSON data structures.
 
 ### Constant guard
 
@@ -145,6 +148,8 @@ Use it as: `isOneOf(isNumber, isString)`
 
 The resulting type will be `number | string`.
 The isOneOf accepts two or more checkers as arguments.
+
+> **isAnyOf** is a deprecated alias for `isOneOf`. Prefer `isOneOf` in new code.
 
 **isAllOf**
 
