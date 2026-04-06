@@ -12,6 +12,12 @@
   properties with `undefined` in their type to optional properties. This is the
   type produced by `isObject` guards.
 
+### Changed
+
+- `UndefinedAsOptional<T>` now produces a flattened object type instead of an
+  intersection (`WithOptional<T> & WithRequired<T>`), so IDE tooltips show a
+  clean `{ id: string; username?: string }` instead of the raw intersection.
+
 ## [2.4.0] - 2026-10-14
 
 ### Fixed
