@@ -24,7 +24,11 @@ export interface CheckerGuard<T> extends Guard<T> {
   error: CheckError | null;
 }
 
-export type Guard<T> = (v: unknown, context?: Context) => v is T;
+export interface Guard<T> {
+  (v: unknown, context?: Context): v is T;
+  // Optional display name for better error messages
+  displayName?: string;
+}
 
 export type JSONPrimitive = null | string | number | boolean;
 
@@ -45,5 +49,10 @@ function pathToString(path: (string | number)[]): string {
 }
 
 export function guardName(guard: Guard<unknown>): string {
-  return guard.name || "λ";
+  return guard.displayName || guard.name || "λ";
+}
+
+export function named<T>(name: string, guard: Guard<T>): Guard<T> {
+  guard.displayName = name;
+  return guard;
 }

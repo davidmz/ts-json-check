@@ -5,7 +5,7 @@ export type {
   Context,
   JSONPrimitive,
 } from "./common.ts";
-export { CheckError } from "./common.ts";
+export { type CheckError, named } from "./common.ts";
 export {
   isNull,
   isUndefined,

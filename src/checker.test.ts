@@ -3,7 +3,7 @@ import { strictEqual, ok } from "node:assert";
 import { checker } from "./checker.ts";
 import { isNumber, isString } from "./primitive.ts";
 import { isObject } from "./complex.ts";
-import { CheckError } from "./common.ts";
+import { CheckError, named } from "./common.ts";
 
 describe("checker", () => {
   it("should return true and clear error on valid data", () => {
@@ -50,6 +50,36 @@ describe("checker", () => {
     chk({ foo: "oops" });
     strictEqual(chk.error?.path, ".foo");
     strictEqual(chk.error?.message, "isNumber() failed");
+  });
+
+  describe("named", () => {
+    it("should use displayName in error message instead of function name", () => {
+      const isUser = named("isUser", isObject({ id: isNumber }));
+      const chk = checker(isUser);
+      chk({ id: "oops" });
+      strictEqual(chk.error?.message, "isNumber() failed");
+    });
+
+    it("should use displayName when custom guard is used as a field in isObject", () => {
+      const isPositiveNumber = named(
+        "isPositiveNumber",
+        (v: unknown): v is number => typeof v === "number" && v > 0,
+      );
+      const chk = checker(isObject({ count: isPositiveNumber }));
+      chk({ count: -1 });
+      strictEqual(chk.error?.path, ".count");
+      strictEqual(chk.error?.message, "isPositiveNumber() failed");
+    });
+
+    it("should use displayName for a custom guard after minification", () => {
+      // Simulates a minified guard with a meaningless name
+      const a = (v: unknown): v is number => typeof v === "number" && v > 0;
+      named("isPositiveNumber", a);
+      const chk = checker(isObject({ count: a }));
+      chk({ count: -1 });
+      strictEqual(chk.error?.path, ".count");
+      strictEqual(chk.error?.message, "isPositiveNumber() failed");
+    });
   });
 
   describe("nested checkers", () => {

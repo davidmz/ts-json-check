@@ -206,6 +206,30 @@ Simple custom guards like the one above don't need to handle the `context` param
 when used with `checker()`, it will fall back to a generic error message pointing at the
 guard's function name.
 
+> **Note:** In production builds, function names are typically minified (e.g. `isPositiveNumber`
+> becomes `a`), making error messages like `a() failed` useless. Use `named()` to assign a
+> stable display name to any guard:
+>
+> ```typescript
+> import { named } from "ts-json-check";
+>
+> const isPositiveNumber = named(
+>   "isPositiveNumber",
+>   (v: unknown): v is number => typeof v === "number" && v > 0,
+> );
+> // error message will always be "isPositiveNumber() failed"
+> ```
+>
+> Alternatively, you can set the `displayName` property directly:
+>
+> ```typescript
+> const isPositiveNumber = (v: unknown): v is number =>
+>   typeof v === "number" && v > 0;
+> isPositiveNumber.displayName = "isPositiveNumber";
+> ```
+>
+> `named()` only helps for "leaf" guards that don't set `ctx.error` themselves.
+
 However, if you write a complex custom guard with internal branching, you should populate
 the context yourself so that `checker()` can report a precise error path:
 
