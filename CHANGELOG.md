@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.5.0] - 2026-04-07
+
+### Added
+
+- `named(name, guard)` function: assigns a stable `displayName` to a guard so
+  that `checker()` error messages remain readable in minified production builds.
+  Only needed for custom "leaf" guards that don't set a context error message
+  explicitly, like `named('isPositive', (x) => typeof x === 'number' && x > 0)`.
+  All built-in guards already have stable names.
+
 ## [2.5.0] - 2026-04-06
 
 ### Added
