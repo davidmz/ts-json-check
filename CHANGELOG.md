@@ -1,6 +1,12 @@
 # Changelog
 
-## [2.5.0] - 2026-04-07
+## [2.6.1] - 2026-04-08
+
+### Fixed
+
+- Fixed build issues again:(
+
+## [2.6.0] - 2026-04-07
 
 ### Added
 

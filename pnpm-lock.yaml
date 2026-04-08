@@ -13,8 +13,8 @@ importers:
         version: 3.11.0
     devDependencies:
       '@davidmz/ts-lib-build':
-        specifier: ^0.4.0
-        version: 0.4.0(typescript@6.0.2)
+        specifier: ^0.5.0
+        version: 0.5.0(typescript@6.0.2)
       '@types/node':
         specifier: ^25.5.2
         version: 25.5.2
@@ -33,6 +33,7 @@ importers:
       typescript:
         specifier: ^6.0.2
         version: 6.0.2
+    publishDirectory: build
 
 packages:
 
@@ -47,8 +48,8 @@ packages:
   '@colordx/core@5.0.3':
     resolution: {integrity: sha512-xBQ0MYRTNNxW3mS2sJtlQTT7C3Sasqgh1/PsHva7fyDb5uqYY+gv9V0utDdX8X80mqzbGz3u/IDJdn2d/uW09g==}
 
-  '@davidmz/ts-lib-build@0.4.0':
-    resolution: {integrity: sha512-sZDFCf+oqqb3IsVEbUNWfxaI2KULYalwxftu3Yz3hn/qpRJOZQCM8NmKdPdLEgs/z4QsDhkeAuChPjEq4DYttQ==}
+  '@davidmz/ts-lib-build@0.5.0':
+    resolution: {integrity: sha512-iQeVt0HdDLw6izZ6JArxtQv8vTM+oWrjCQns10qJJE+8AWZ72mRFRC2/73mcsLWINfEZWUIHIyJK75x6yVrpJA==}
     hasBin: true
 
   '@esbuild/aix-ppc64@0.25.12':
@@ -1288,7 +1289,7 @@ snapshots:
 
   '@colordx/core@5.0.3': {}
 
-  '@davidmz/ts-lib-build@0.4.0(typescript@6.0.2)':
+  '@davidmz/ts-lib-build@0.5.0(typescript@6.0.2)':
     dependencies:
       ts-json-check: 2.0.3
       unbuild: 3.6.1(typescript@6.0.2)

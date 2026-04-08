@@ -1,6 +1,6 @@
 {
   "name": "ts-json-check",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "Simple JSON-oriented typechecker for TypeScript",
   "keywords": [
     "JSON",
@@ -20,13 +20,14 @@
     "prepack": "pnpm run check && pnpm run test && pnpm run build",
     "test": "node --test src/*.test.ts src/**/*.test.ts",
     "format": "oxfmt",
-    "check": "tsc && oxlint && oxfmt --check"
+    "check": "tsc && oxlint && oxfmt --check",
+    "prepublishOnly": "ts-lib-build check-publish"
   },
   "dependencies": {
     "utility-types": "~3.11.0"
   },
   "devDependencies": {
-    "@davidmz/ts-lib-build": "^0.4.0",
+    "@davidmz/ts-lib-build": "^0.5.0",
     "@types/node": "^25.5.2",
     "conditional-type-checks": "~1.0.6",
     "oxfmt": "^0.43.0",
